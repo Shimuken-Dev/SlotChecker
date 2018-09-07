@@ -9,12 +9,13 @@ public class Manager_MainCanvas : MonoBehaviour {
 		Title
 	}
 
+	Manager_SubCanvas SubCanvasMng;
+
 	GameObject PrefabObj;
 
 	string 
 	Path_Format = "Prefab/Main/{0}",
 	Prefab_Name;
-
 
 /**パブリック関数**/
 	//メインを開く(生成)
@@ -25,17 +26,18 @@ public class Manager_MainCanvas : MonoBehaviour {
 		Prefab_Name = page.ToString ();
 		//生成オブジェクトを指定
 		PrefabObj = Resources.Load (string.Format (Path_Format, page)) as GameObject;
-		CreateMain (PrefabObj);
+		CreateMain ();
 	}
 /**関数**/
 	//コンテンツ生成
-	void CreateMain (GameObject Obj){
+	void CreateMain (){
 		//サブキャンバスのコンテンツを全て削除
-
+		if(SubCanvasMng == null){ GameObject.Find ("SubCanvasMng").GetComponent<Manager_SubCanvas> (); }
+		SubCanvasMng.CloseSub (true);
 		//メインキャンバスのコンテンツを全て削除
 		Destory_MainContent ();
 		//プレハブ生成
-		GameObject InstansObj = Instantiate (Obj) as GameObject;
+		GameObject InstansObj = Instantiate (PrefabObj) as GameObject;
 		InstansObj.transform.SetParent (gameObject.transform, false);
 		InstansObj.name = Prefab_Name;
 		InstansObj.SetActive (true);
