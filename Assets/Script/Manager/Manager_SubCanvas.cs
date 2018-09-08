@@ -53,6 +53,7 @@ public class Manager_SubCanvas : MonoBehaviour {
 		//プレハブ生成
 		GameObject InstansObj = Instantiate (PrefabObj) as GameObject;
 		InstansObj.transform.SetParent (gameObject.transform, false);
+		InstansObj.transform.localScale = Vector3.zero;
 		InstansObj.name = Prefab_Name;
 		InstansObj.SetActive (true);
 		PopupAnimation (true, InstansObj.GetComponent<RectTransform>());
