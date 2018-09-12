@@ -151,19 +151,20 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1955078575
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1451803415039640, guid: c0a96d50cdeca44868785355589e78ee,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1955078577}
   - component: {fileID: 1955078576}
   m_Layer: 0
-  m_Name: NCMBSetting
+  m_Name: NCMBSettings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,7 +173,8 @@ GameObject:
 --- !u!114 &1955078576
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 114376171382229714, guid: c0a96d50cdeca44868785355589e78ee,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1955078575}
   m_Enabled: 1
@@ -188,7 +190,8 @@ MonoBehaviour:
 --- !u!4 &1955078577
 Transform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4653652883849186, guid: c0a96d50cdeca44868785355589e78ee,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1955078575}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -196,5 +199,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
