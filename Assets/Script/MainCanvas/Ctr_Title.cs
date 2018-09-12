@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Ctr_Title : MonoBehaviour {
-
+	
 	Manager_SubCanvas SubCanvasMng;
 
 
@@ -12,17 +12,10 @@ public class Ctr_Title : MonoBehaviour {
 	}
 
 
-	//パブリック関数
-	//ログイン完了後に呼ばれる関数
-	public void CallBackFinishLogin(){
-		//お知らせを開く
-		SubCanvasMng.OpenSub (Manager_SubCanvas.Sub.News);
-	}
-
 //UGUI
 	//スタートボタン
 	public void OnClick_StartBtn(){
-		SubCanvasMng.OpenSub (Manager_SubCanvas.Sub.Login);
+		SubCanvasMng.OpenSub (Manager_SubCanvas.Sub.News);
 	}
 
 //関数

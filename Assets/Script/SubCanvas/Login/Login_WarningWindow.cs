@@ -64,9 +64,6 @@ public class Login_WarningWindow : MonoBehaviour {
 	}
 	//ログインPopupを閉じる
 	public void OnClick_FnishBtn(){
-		if (GameObject.Find("MainCanvas/Title") == true){
-			GameObject.Find ("MainCanvas/Title").GetComponent<Ctr_Title> ().CallBackFinishLogin();
-		}
 		SubCanvasMng.CloseSub (false, gameObject.transform.parent.GetComponent<RectTransform> ());
 	}
 

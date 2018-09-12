@@ -32,7 +32,7 @@ public class Manager_MainCanvas : MonoBehaviour {
 	//コンテンツ生成
 	void CreateMain (){
 		//サブキャンバスのコンテンツを全て削除
-		if(SubCanvasMng == null){ GameObject.Find ("SubCanvasMng").GetComponent<Manager_SubCanvas> (); }
+		if(SubCanvasMng == null){ SubCanvasMng = GameObject.Find ("SubCanvas").GetComponent<Manager_SubCanvas> (); }
 		SubCanvasMng.CloseSub (true);
 		//メインキャンバスのコンテンツを全て削除
 		Destory_MainContent ();

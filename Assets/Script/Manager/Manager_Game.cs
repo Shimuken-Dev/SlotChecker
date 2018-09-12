@@ -18,6 +18,7 @@ public class Manager_Game : MonoBehaviour {
 		//PlayerPrefsをロード
 		Load_Data_User.Load ();
 		Initialize ();
+		MainCanvasMng.OpenMain (Manager_MainCanvas.Main.Title);
 		StartCoroutine (FadeCanvasMng.FadeOut (CheckLogin));
 	}
 
@@ -25,12 +26,12 @@ public class Manager_Game : MonoBehaviour {
 /**関数**/
 	//初期化
 	void Initialize(){
-		FadeCanvasMng = GameObject.Find ("FadeCanvas").GetComponent<Manager_FadeCanvas> ();
-		SubCanvasMng = GameObject.Find ("SubCanvas").GetComponent<Manager_SubCanvas> ();
-		MainCanvasMng = GameObject.Find ("SubCanvas").GetComponent<Manager_MainCanvas> ();
+		FadeCanvasMng 	= GameObject.Find ("FadeCanvas").GetComponent<Manager_FadeCanvas> ();
+		SubCanvasMng 	= GameObject.Find ("SubCanvas").GetComponent<Manager_SubCanvas> ();
+		MainCanvasMng 	= GameObject.Find ("MainCanvas").GetComponent<Manager_MainCanvas> ();
 	}
 	//最初のフェードアウト完了コールバック
 	void CheckLogin(){
-		MainCanvasMng.OpenMain (Manager_MainCanvas.Main.Title);
+		SubCanvasMng.OpenSub (Manager_SubCanvas.Sub.Login);
 	}
 }

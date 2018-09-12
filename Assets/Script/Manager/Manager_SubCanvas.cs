@@ -31,10 +31,8 @@ public class Manager_SubCanvas : MonoBehaviour {
 	//サブを閉じる
 	public void CloseSub (bool AllDeth, RectTransform ObjRectTrns = null){
 		if (AllDeth == true) {
-			foreach (Transform n in gameObject.transform) {
-				if (n.name != "DontTouch") {
-					PopupAnimation (false, n.GetComponent<RectTransform> ());
-				} else {
+			if (gameObject.transform.childCount != 0) {
+				foreach (Transform n in gameObject.transform) {
 					Destroy (n.gameObject);
 				}
 			}
