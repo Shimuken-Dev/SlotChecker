@@ -69,6 +69,7 @@ public class Ctr_Login : MonoBehaviour {
 				DontTouchWindowCtr.CloseWindow ();
 				//現在のユーザ情報を取得してローカルデータを更新
 				NCMBUser currentUser = NCMBUser.CurrentUser;
+				//currentUser.AddUniqueToList ("news","[\"\"]");
 				Data_User.User_Name = currentUser.UserName;
 				Data_User.Mail_Address = currentUser.Email;
 				Data_User.Device_ID = currentUser ["deviceId"].ToString ();
