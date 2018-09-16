@@ -79,14 +79,13 @@ public class Ctr_News : MonoBehaviour {
 	//詳細ボタン
 	public void OnClick_MoreDetailNewsBtn(GameObject Obj){
 		//TODO banner画像がまだ
-
 		string text = CommonFunctionsCtr.UnEscape(MoreDetailNews_main [Obj.name]);
 		string title = Obj.transform.Find ("TextContent/TitleText").GetComponent<Text> ().text;
 		string Day = Obj.transform.Find ("TextContent/DayText").GetComponent<Text> ().text;
 
-		MoreDetailNews_obj.transform.Find ("Content/Header/TextContent/TitleText").GetComponent<Text> ().text = title;
-		MoreDetailNews_obj.transform.Find("Content/Header/TextContent/DayText").GetComponent<Text>().text = Day;
-		MoreDetailNews_obj.transform.Find ("Content/MainText").GetComponent<Text> ().text = text;
+		MoreDetailNews_obj.transform.Find ("Header/TextContent/TitleText").GetComponent<Text> ().text = title;
+		MoreDetailNews_obj.transform.Find("Header/TextContent/DayText").GetComponent<Text>().text = Day;
+		MoreDetailNews_obj.transform.Find ("View/MainText").GetComponent<Text> ().text = text;
 		MoreDetailNews_obj.SetActive (true);
 	}
 }
