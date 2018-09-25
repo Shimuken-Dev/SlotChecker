@@ -113,11 +113,12 @@ public class Login_CheckWindowCtr : MonoBehaviour {
 		//Userインスタンスの生成
 		NCMBUser user = new NCMBUser ();
 		// ユーザー名・パスワードを設定
-		user.UserName = Data_User.User_Name; /* ユーザー名 */
-		user.Password = Data_User.Pass_Word; /* パスワード */
-		user.Email = Data_User.Mail_Address; /* メールアドレス */
-		user.Add ("deviceId", Data_User.Device_ID); /* 端末ID */
-		user.Add ("tester", false); /* 端末ID */
+		user.UserName = Data_User.User_Name; 		/* ユーザー名 */
+		user.Password = Data_User.Pass_Word; 		/* パスワード */
+		user.Email = Data_User.Mail_Address; 		/* メールアドレス */
+		user.Add ("read_news", "");			/* 既読ニュース*/
+		user.Add ("deviceId", Data_User.Device_ID); 	/* 端末ID */
+		user.Add ("tester", false); 			/* テスター */
 		// ユーザーの新規登録処理
 		user.SignUpAsync ((NCMBException SingUp_Excep) => {
 			if (SingUp_Excep != null) {
