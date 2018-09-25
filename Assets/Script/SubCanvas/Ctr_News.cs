@@ -19,6 +19,7 @@ public class Ctr_News : MonoBehaviour {
 	Manager_SubCanvas SubCanvasMng;
 
 	Dictionary<string, string> MoreDetailNews_main;
+	Dictionary<string, string> News_Banner;
 	NCMBQuery<NCMBObject> NewsQuery;
 	NCMBUser currentUser;
 	List<string> ReadNews_list;
@@ -34,6 +35,7 @@ public class Ctr_News : MonoBehaviour {
 		ConnectingMng = GameObject.Find ("ConnectingCanvas").GetComponent<Manager_ConnectingCanvas> ();
 		SubCanvasMng = GameObject.Find ("SubCanvas").GetComponent<Manager_SubCanvas> ();
 		MoreDetailNews_main = new Dictionary<string, string> ();
+		News_Banner = new Dictionary<string, string> ();
 		ReadNews_list = new List<string> ();
 		currentUser = NCMBUser.CurrentUser;
 	}
@@ -50,7 +52,7 @@ public class Ctr_News : MonoBehaviour {
 				//検索成功時の処理
 				if(objList.Count > 0){
 					//新着ニュース管理
-					string read_news = NCMBUser.CurrentUser ["read_news"].ToString();
+					string read_news = currentUser ["read_news"].ToString();
 					if (read_news != "") {
 						string [] read_news_hash = read_news.Split (',');
 						ReadNews_list.AddRange (read_news_hash);
@@ -79,6 +81,10 @@ public class Ctr_News : MonoBehaviour {
 			InsObj.SetActive (true);
 			//dictionaryへObject IDと本文を格納
 			MoreDetailNews_main.Add (obj.ObjectId, obj ["main"].ToString ());
+			//バナー画像を格納
+			if (obj ["main_banner"].ToString () != "") {
+				News_Banner.Add (obj.ObjectId, obj ["main_banner"].ToString ());
+			}
 		}
 		//通信完了
 		ConnectingMng.Stop_Connecting ();
@@ -86,7 +92,6 @@ public class Ctr_News : MonoBehaviour {
 	//既読チェック
 	void PushNewsID(){
 		string id = "";
-		NCMBUser user = NCMBUser.CurrentUser;
 
 		for (int i = 0; i < ReadNews_list.Count (); i++) {
 			var data = ReadNews_list [i];
@@ -98,8 +103,21 @@ public class Ctr_News : MonoBehaviour {
 			}
 		}
 
-		user ["read_news"] = id;
-		user.Save ();
+		currentUser ["read_news"] = id;
+		currentUser.Save ();
+	}
+	//バナー画像表示
+	void GetBannerImage(string file_name){
+		NCMBFile file = new NCMBFile (file_name);
+		file.FetchAsync ((byte [] fileData, NCMBException error) => {
+			if (error != null) {
+				// 失敗
+				MoreDetailNews_obj.transform.Find ("View/BannerImg").gameObject.SetActive (false);
+			} else {
+				// 成功
+				MoreDetailNews_obj.transform.Find ("View/BannerImg").GetComponent<Image>().sprite = CommonFunctionsCtr.CreateSpriteFromBytes (fileData);
+			}
+		});
 	}
 
 //UGUI
@@ -117,16 +135,21 @@ public class Ctr_News : MonoBehaviour {
 		//新着マーク管理
 		if (ReadNews_list.Contains(Obj.name) == false) { // ObjectIDと一致するものがあるかどうか確認する
 			// 存在しない
-			Debug.Log (Obj.name);
 			Obj.transform.Find ("NewMarkImg").gameObject.SetActive (false);
 			ReadNews_list.Add (Obj.name);
 		}
-
-		//TODO banner画像がまだ
+		//テキストコンテンツ
 		string text = CommonFunctionsCtr.UnEscape(MoreDetailNews_main [Obj.name]);
 		string title = Obj.transform.Find ("TextContent/TitleText").GetComponent<Text> ().text;
 		string Day = Obj.transform.Find ("TextContent/DayText").GetComponent<Text> ().text;
-
+		//バナー画像
+		if(News_Banner.ContainsKey(Obj.name) == true){
+			MoreDetailNews_obj.transform.Find ("View/BannerImg").gameObject.SetActive (true);
+			GetBannerImage (News_Banner[Obj.name]);
+		}else{
+			MoreDetailNews_obj.transform.Find ("View/BannerImg").gameObject.SetActive (false);
+		}
+		//View反映
 		MoreDetailNews_obj.transform.Find ("Header/TextContent/TitleText").GetComponent<Text> ().text = title;
 		MoreDetailNews_obj.transform.Find("Header/TextContent/DayText").GetComponent<Text>().text = Day;
 		MoreDetailNews_obj.transform.Find ("View/MainText").GetComponent<Text> ().text = text;
