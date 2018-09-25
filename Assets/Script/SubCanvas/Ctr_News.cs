@@ -96,13 +96,12 @@ public class Ctr_News : MonoBehaviour {
 		for (int i = 0; i < ReadNews_list.Count (); i++) {
 			var data = ReadNews_list [i];
 		
-			if (i != ReadNews_list.Count) {
+			if (i != ReadNews_list.Count-1) {
 				id += data + ",";
 			} else {
 				id += data;
 			}
 		}
-
 		currentUser ["read_news"] = id;
 		currentUser.Save ();
 	}
