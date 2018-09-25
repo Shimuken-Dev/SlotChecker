@@ -34,4 +34,9 @@ public class CommonFunctionsCtr : MonoBehaviour {
 
 		return Sprite.Create (texture, new Rect (0, 0, texture.width, texture.height), Vector2.zero);
 	}
+
+	//**** 文字の出現回数をカウント ****//
+	public static int CountChar (string s, char c){
+		return s.Length - s.Replace (c.ToString (), "").Length;
+	}
 }

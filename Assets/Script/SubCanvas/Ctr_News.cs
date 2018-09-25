@@ -17,6 +17,7 @@ public class Ctr_News : MonoBehaviour {
 
 	Manager_ConnectingCanvas ConnectingMng;
 	Manager_SubCanvas SubCanvasMng;
+	Ctr_Title TitleCtr;
 
 	Dictionary<string, string> MoreDetailNews_main;
 	Dictionary<string, string> News_Banner;
@@ -34,6 +35,11 @@ public class Ctr_News : MonoBehaviour {
 	void Initialize(){
 		ConnectingMng = GameObject.Find ("ConnectingCanvas").GetComponent<Manager_ConnectingCanvas> ();
 		SubCanvasMng = GameObject.Find ("SubCanvas").GetComponent<Manager_SubCanvas> ();
+
+		if(GameObject.Find ("MainCanvas/Title") == true){
+			TitleCtr = GameObject.Find ("MainCanvas/Title").GetComponent<Ctr_Title> ();
+		}
+
 		MoreDetailNews_main = new Dictionary<string, string> ();
 		News_Banner = new Dictionary<string, string> ();
 		ReadNews_list = new List<string> ();
@@ -48,6 +54,8 @@ public class Ctr_News : MonoBehaviour {
 		NewsQuery.FindAsync ((List<NCMBObject> objList, NCMBException ListExcep) => {
 			if (ListExcep != null) {
 				//検索失敗時の処理
+				ConnectingMng.Stop_Connecting ();
+				OnClick_CloseBtn ();
 			} else {
 				//検索成功時の処理
 				if(objList.Count > 0){
@@ -123,6 +131,7 @@ public class Ctr_News : MonoBehaviour {
 	//Popup閉じるボタン
 	public void OnClick_CloseBtn(){
 		PushNewsID ();
+		TitleCtr.NewMark_News ();
 		SubCanvasMng.CloseSub (false, gameObject.GetComponent<RectTransform> ());
 	}
 	//詳細を閉じるボタン
