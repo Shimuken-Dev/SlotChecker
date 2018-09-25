@@ -35,6 +35,10 @@ public class Ctr_Title : MonoBehaviour {
 	public void OnClick_SettingBtn(){
 		SubCanvasMng.OpenSub (Manager_SubCanvas.Sub.Setting);
 	}
+	//ニュースボタン
+	public void OnClick_NewsBtn(){
+		SubCanvasMng.OpenSub (Manager_SubCanvas.Sub.News);
+	}
  	/*メニューのボタンたち*/
 
 
