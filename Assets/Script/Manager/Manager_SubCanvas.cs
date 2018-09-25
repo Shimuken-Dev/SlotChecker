@@ -9,7 +9,8 @@ public class Manager_SubCanvas : MonoBehaviour {
 
 	public enum Sub{
 		Login,
-		News
+		News,
+		Setting
 	}
 
 	GameObject PrefabObj;

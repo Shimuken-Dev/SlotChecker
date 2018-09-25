@@ -33,10 +33,10 @@ public class Ctr_Title : MonoBehaviour {
 	}
 	//セッテイングボタン
 	public void OnClick_SettingBtn(){
-		
+		SubCanvasMng.OpenSub (Manager_SubCanvas.Sub.Setting);
 	}
  	/*メニューのボタンたち*/
-	//
+
 
 //関数
 	//初期化
