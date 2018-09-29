@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class Manager_MainCanvas : MonoBehaviour {
 
 	public enum Main{
-		Title
+		Title,
+		SlotList
 	}
 
 	Manager_SubCanvas SubCanvasMng;

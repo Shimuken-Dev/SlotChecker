@@ -20,7 +20,11 @@ public class Ctr_Title : MonoBehaviour {
 	[SerializeField]
 	GameObject News_NewMarkObj;
 
+	Manager_MainCanvas MainCanvasMng;
 	Manager_SubCanvas SubCanvasMng;
+	Manager_FadeCanvas FadeCanvasMng;
+
+	static bool NewsFlg;
 
 
 	void Start (){
@@ -31,7 +35,10 @@ public class Ctr_Title : MonoBehaviour {
 //UGUI
 	//スタートボタン
 	public void OnClick_StartBtn(){
-		SubCanvasMng.OpenSub (Manager_SubCanvas.Sub.News);
+		if (NewsFlg == false) {
+			SubCanvasMng.OpenSub (Manager_SubCanvas.Sub.News);
+			NewsFlg = true;
+		}
 		Animation_Menu ();
 	}
 	//セッテイングボタン
@@ -43,14 +50,19 @@ public class Ctr_Title : MonoBehaviour {
 		SubCanvasMng.OpenSub (Manager_SubCanvas.Sub.News);
 	}
  	/*メニューのボタンたち*/
-
+	public void OnClick_SlotListBtn(){
+		StartCoroutine(FadeCanvasMng.FadeIn (() => MainCanvasMng.OpenMain (Manager_MainCanvas.Main.SlotList)));
+	}
 
 //関数
 	//初期化
 	void Initialize(){
+		MainCanvasMng = GameObject.Find ("MainCanvas").GetComponent<Manager_MainCanvas> ();
 		SubCanvasMng = GameObject.Find ("SubCanvas").GetComponent<Manager_SubCanvas> ();
+		FadeCanvasMng = GameObject.Find ("FadeCanvas").GetComponent<Manager_FadeCanvas> ();
 		AppVer_text.text = "アプリバージョン : " + Application.version;
 		UserName_text.text = "アカウント : " + Data_User.User_Name;
+		StartCoroutine (FadeCanvasMng.FadeOut (null));
 	}
 
 	//Newsの新着マーク処理
