@@ -12,10 +12,15 @@ public class Ctr_SlotList : MonoBehaviour {
 	[SerializeField]
 	Transform ContentTrns;
 
+	[SerializeField]
+	Sprite NoImage_Spr;
+
 	Manager_ConnectingCanvas ConnectingMng;
 	Manager_MainCanvas MainCanvasMng;
 	Manager_FadeCanvas FadeCanvasMng;
+	Manager_SubCanvas SubCanvasMng;
 
+	string Choice_Machine;
 
 	void Start (){
 		Initialized ();
@@ -29,6 +34,7 @@ public class Ctr_SlotList : MonoBehaviour {
 		ConnectingMng = GameObject.Find ("ConnectingCanvas").GetComponent<Manager_ConnectingCanvas> ();
 		MainCanvasMng = GameObject.Find ("MainCanvas").GetComponent<Manager_MainCanvas> ();
 		FadeCanvasMng = GameObject.Find ("FadeCanvas").GetComponent<Manager_FadeCanvas> ();
+		SubCanvasMng = GameObject.Find ("SubCanvas").GetComponent<Manager_SubCanvas> ();
 	}
 
 	//スロット一覧取得
@@ -57,11 +63,16 @@ public class Ctr_SlotList : MonoBehaviour {
 			InsObj.transform.SetParent (ContentTrns, false);
 			//コンテンツ表示
 			InsObj.name = obj.ObjectId;
-			//InsObj.transform.Find ("Thum").GetComponent<Image> ().sprite = null;
+			if(obj["thumbnail"].ToString() != null){
+				GetThumbnail (obj ["thumbnail"].ToString (), InsObj.transform.Find ("Thum").GetComponent<Image> ());
+			}else{
+				InsObj.transform.Find ("Thum").GetComponent<Image> ().sprite = NoImage_Spr;
+			}
 			InsObj.transform.Find ("TypeBand/TypeText").GetComponent<Text> ().text = obj ["type"].ToString ();
 			InsObj.transform.Find ("Info/Name").GetComponent<Text> ().text = obj ["name"].ToString ();
 			InsObj.transform.Find ("Info/Maker").GetComponent<Text> ().text = obj ["maker"].ToString ();
 			InsObj.transform.Find ("Info/ReleaseDay").GetComponent<Text> ().text = obj ["releaseDate"].ToString ();
+			InsObj.transform.Find ("ComingSoon").gameObject.SetActive (bool.Parse (obj ["comingSoon"].ToString ()));
 			InsObj.SetActive (true);
 		}
 		//通信完了
@@ -69,10 +80,29 @@ public class Ctr_SlotList : MonoBehaviour {
 		StartCoroutine(FadeCanvasMng.FadeOut (null));
 	}
 
+	//サムネイル画像取得
+	void GetThumbnail(string file_name,Image image){
+		NCMBFile file = new NCMBFile (file_name);
+		file.FetchAsync ((byte [] fileData, NCMBException error) => {
+			if (error != null) {
+				// 失敗
+				image.sprite = NoImage_Spr;
+			} else {
+				// 成功
+				image.sprite = Sprite.Create (CommonFunctionsCtr.CreateTextureFormBytes (fileData), new Rect (0, 0, 200, 300), Vector2.zero);
+			}
+		});
+	}
 
 //UGUI
 	//閉じるボタン
 	public void OnClick_CloseBtn(){
 		StartCoroutine (FadeCanvasMng.FadeIn (() => MainCanvasMng.OpenMain (Manager_MainCanvas.Main.Title)));
+	}
+
+	//台選択ボタン
+	public void OnClick_ChoiceBtn(GameObject Obj){
+		Choice_Machine = Obj.name;
+		SubCanvasMng.OpenSub (Manager_SubCanvas.Sub.SlotListMenu);
 	}
 }

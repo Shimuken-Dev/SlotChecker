@@ -35,6 +35,13 @@ public class CommonFunctionsCtr : MonoBehaviour {
 		return Sprite.Create (texture, new Rect (0, 0, texture.width, texture.height), Vector2.zero);
 	}
 
+	//**** byte配列からテクスチャ2Dを返す関数 ****//
+	public static Texture2D CreateTextureFormBytes(byte [] bytes){
+		Texture2D texture = new Texture2D (1, 1);
+		texture.LoadImage (bytes);
+		return texture;
+	}
+
 	//**** 文字の出現回数をカウント ****//
 	public static int CountChar (string s, char c){
 		return s.Length - s.Replace (c.ToString (), "").Length;
