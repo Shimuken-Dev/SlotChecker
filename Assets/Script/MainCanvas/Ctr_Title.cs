@@ -29,6 +29,7 @@ public class Ctr_Title : MonoBehaviour {
 
 	void Start (){
 		Initialize ();
+		StartCoroutine (FadeCanvasMng.FadeOut (null));
 	}
 
 
@@ -49,9 +50,14 @@ public class Ctr_Title : MonoBehaviour {
 	public void OnClick_NewsBtn(){
 		SubCanvasMng.OpenSub (Manager_SubCanvas.Sub.News);
 	}
- 	/*メニューのボタンたち*/
+ /*メニューのボタンたち*/
+	//スロット一覧
 	public void OnClick_SlotListBtn(){
 		StartCoroutine(FadeCanvasMng.FadeIn (() => MainCanvasMng.OpenMain (Manager_MainCanvas.Main.SlotList)));
+	}
+	//ノリ打ち
+	public void OnClick_CoopBtn(){
+		StartCoroutine (FadeCanvasMng.FadeIn (() => MainCanvasMng.OpenMain (Manager_MainCanvas.Main.Coop)));
 	}
 
 //関数
@@ -62,7 +68,6 @@ public class Ctr_Title : MonoBehaviour {
 		FadeCanvasMng = GameObject.Find ("FadeCanvas").GetComponent<Manager_FadeCanvas> ();
 		AppVer_text.text = "アプリバージョン : " + Application.version;
 		UserName_text.text = "アカウント : " + Data_User.User_Name;
-		StartCoroutine (FadeCanvasMng.FadeOut (null));
 	}
 
 	//Newsの新着マーク処理

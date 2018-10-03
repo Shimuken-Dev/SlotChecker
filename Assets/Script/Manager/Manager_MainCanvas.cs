@@ -7,7 +7,8 @@ public class Manager_MainCanvas : MonoBehaviour {
 
 	public enum Main{
 		Title,
-		SlotList
+		SlotList,
+		Coop
 	}
 
 	Manager_SubCanvas SubCanvasMng;
