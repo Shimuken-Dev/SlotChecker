@@ -7,6 +7,9 @@ using NCMB;
 
 public class Ctr_Coop_StatusPopup : MonoBehaviour {
 
+	[SerializeField]
+	GameObject TempleteObj;
+
 	Transform ContentTrns;
 
 	Text
@@ -89,18 +92,43 @@ public class Ctr_Coop_StatusPopup : MonoBehaviour {
 			}else{
 				ConnectingCanvasMng.Stop_Connecting ();
 				foreach(NCMBObject obj in objList){
-					GameObject ContentObj = ContentTrns.Find (obj.ObjectId).gameObject;
-					//投資金額
-					AllUsedMoney += int.Parse(obj ["usedMoney"].ToString());
-					ContentObj.transform.Find ("Info/UsedMoneyText").GetComponent<Text> ().text = string.Format ("投資金額: {0}円", obj ["usedMoney"]);
-					//持ちメダル数
-					AllHaveMedal += int.Parse (obj ["haveMedal"].ToString());
-					ContentObj.transform.Find ("Info/HaveInfo/HaveMedalText").GetComponent<Text> ().text = string.Format ("持ちメダル: {0}枚", obj ["haveMedal"]);
-					//持ち玉数
-					AllHaveBall += int.Parse (obj ["haveBall"].ToString ());
-					ContentObj.transform.Find ("Info/HaveInfo/HaveBallText").GetComponent<Text> ().text = string.Format ("持ち玉: {0}玉", obj ["haveBall"]);
-					//遊戯中の機種
-					ContentObj.transform.Find ("PlayMachineInfo/Text").GetComponent<Text> ().text = string.Format ("遊戯中の機種: {0}", obj ["playMachine"]);
+					if (ContentTrns.Find (obj.ObjectId) == true) {
+					//情報のみを更新
+						GameObject ContentObj = ContentTrns.Find (obj.ObjectId).gameObject;
+						//投資金額
+						AllUsedMoney += int.Parse (obj ["usedMoney"].ToString ());
+						ContentObj.transform.Find ("Info/UsedMoneyText").GetComponent<Text> ().text = string.Format ("投資金額: {0}円", obj ["usedMoney"]);
+						//持ちメダル数
+						AllHaveMedal += int.Parse (obj ["haveMedal"].ToString ());
+						ContentObj.transform.Find ("Info/HaveInfo/HaveMedalText").GetComponent<Text> ().text = string.Format ("持ちメダル: {0}枚", obj ["haveMedal"]);
+						//持ち玉数
+						AllHaveBall += int.Parse (obj ["haveBall"].ToString ());
+						ContentObj.transform.Find ("Info/HaveInfo/HaveBallText").GetComponent<Text> ().text = string.Format ("持ち玉: {0}玉", obj ["haveBall"]);
+						//遊戯中の機種
+						ContentObj.transform.Find ("PlayMachineInfo/Text").GetComponent<Text> ().text = string.Format ("遊戯中の機種: {0}", obj ["playMachine"]);
+					}else{
+					//メンバーを作成
+						GameObject InsObj = Instantiate (TempleteObj);
+						InsObj.transform.SetParent (ContentTrns, false);
+						InsObj.name = obj.ObjectId;
+						//プレイヤーアイコン
+						int i = UnityEngine.Random.Range (0, 5);
+						InsObj.transform.Find ("Player/Icon").GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Texture/Coop/PlayerIcon/" + i.ToString ());
+						//プレイヤーネーム
+						InsObj.transform.Find ("Player/Texts/NameText").GetComponent<Text> ().text = obj ["player"].ToString ();
+						//称号
+						int range = UnityEngine.Random.Range (0, 4);
+						InsObj.transform.Find ("Player/Texts/TitileImg").GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Texture/Coop/PlayerTitle/" + range.ToString ());
+						//投資金額
+						InsObj.transform.Find ("Info/UsedMoneyText").GetComponent<Text> ().text = string.Format ("投資金額: {0}円", obj ["usedMoney"]);
+						//持ちメダル数
+						InsObj.transform.Find ("Info/HaveInfo/HaveMedalText").GetComponent<Text> ().text = string.Format ("持ちメダル: {0}枚", obj ["haveMedal"]);
+						//持ち玉数
+						InsObj.transform.Find ("Info/HaveInfo/HaveBallText").GetComponent<Text> ().text = string.Format ("持ち玉: {0}玉", obj ["haveBall"]);
+						//遊戯中の機種
+						InsObj.transform.Find ("PlayMachineInfo/Text").GetComponent<Text> ().text = string.Format ("遊戯中の機種: {0}", obj ["playMachine"]);
+						InsObj.SetActive (true);
+					}
 				}
 				//チーム戦績更新
 				Update_TeamInfo ();

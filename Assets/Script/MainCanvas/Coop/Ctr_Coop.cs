@@ -105,6 +105,9 @@ public class Ctr_Coop : MonoBehaviour {
 			InsObj.transform.Find ("Player/Icon").GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Texture/Coop/PlayerIcon/"+i.ToString());
 			//プレイヤーネーム
 			InsObj.transform.Find ("Player/Texts/NameText").GetComponent<Text> ().text = Data_User.User_Name;
+			//称号
+			int range = UnityEngine.Random.Range (0, 4);
+			InsObj.transform.Find ("Player/Texts/TitileImg").GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Texture/Coop/PlayerTitle/" + range.ToString ());
 			//投資金額
 			InsObj.transform.Find ("Info/UsedMoneyText").GetComponent<Text> ().text = "投資金額: 0円";
 			//持ちメダル数
