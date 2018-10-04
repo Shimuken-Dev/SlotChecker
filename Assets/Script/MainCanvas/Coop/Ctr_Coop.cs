@@ -105,6 +105,9 @@ public class Ctr_Coop : MonoBehaviour {
 			InsObj.transform.Find ("Player/Icon").GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Texture/Coop/PlayerIcon/"+i.ToString());
 			//プレイヤーネーム
 			InsObj.transform.Find ("Player/Texts/NameText").GetComponent<Text> ().text = Data_User.User_Name;
+			//称号
+			int range = UnityEngine.Random.Range (0, 4);
+			InsObj.transform.Find ("Player/Texts/TitileImg").GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Texture/Coop/PlayerTitle/" + range.ToString ());
 			//投資金額
 			InsObj.transform.Find ("Info/UsedMoneyText").GetComponent<Text> ().text = "投資金額: 0円";
 			//持ちメダル数
@@ -180,30 +183,61 @@ public class Ctr_Coop : MonoBehaviour {
 					NCMBQuery<NCMBObject> TeamQuery2 = new NCMBQuery<NCMBObject> (className);
 					TeamQuery2.WhereEqualTo ("player", Data_User.User_Name);
 					TeamQuery2.FindAsync ((List<NCMBObject> objList2, NCMBException e) => {
-						if (e != null) {
-							//初参戦
-							NCMBObject NewTeamObj = new NCMBObject (className);
-							NewTeamObj.Add ("player", Data_User.User_Name);
-							NewTeamObj.Add ("playMachine", "なし");
-							NewTeamObj.Add ("usedMoney", 0);
-							NewTeamObj.Add ("haveMedal", 0);
-							NewTeamObj.Add ("haveBall", 0);
-							NewTeamObj.SaveAsync ();
-						}
-					});
-					TeamQuery.FindAsync ((List<NCMBObject> objList, NCMBException e) => {
-						if (e != null) {
-							MessageCanvasMng.OpenMessagePopup (Manager_MessageCanvas.PopUpType.Normal, "通信に失敗しました");
-							ConnectingCanvasMng.Stop_Connecting ();
+						if (e == null) {
+							if (objList2.Count == 0) {
+								//初参戦
+								NCMBObject NewTeamObj = new NCMBObject (className);
+								NewTeamObj.Add ("player", Data_User.User_Name);
+								NewTeamObj.Add ("playMachine", "なし");
+								NewTeamObj.Add ("usedMoney", 0);
+								NewTeamObj.Add ("haveMedal", 0);
+								NewTeamObj.Add ("haveBall", 0);
+								NewTeamObj.SaveAsync ((NCMBException Save_Ex) => {
+									if (Save_Ex != null) {
+										//エラー処理
+										MessageCanvasMng.OpenMessagePopup (Manager_MessageCanvas.PopUpType.Normal, "通信に失敗しました");
+										ConnectingCanvasMng.Stop_Connecting ();
+									} else {
+										//成功時の処理
+										TeamQuery.FindAsync ((List<NCMBObject> objList, NCMBException Find_Ex) => {
+											if (Find_Ex != null) {
+												MessageCanvasMng.OpenMessagePopup (Manager_MessageCanvas.PopUpType.Normal, "通信に失敗しました");
+												ConnectingCanvasMng.Stop_Connecting ();
+											} else {
+												//ヘッダーとPopupを切り替え
+												SetUpPopup.SetActive (false);
+												StatusPopup.SetActive (true);
+												HeaderCtr ();
+												HeaderText.text = className;
+												//コンテンツ作成
+												CreatePlayer (objList);
+												Input_Coop_InputPopup.Close ();
+												ConnectingCanvasMng.Stop_Connecting ();
+											}
+										});
+									}
+								});
+							}else{
+								//自分が既にいる
+								TeamQuery.FindAsync ((List<NCMBObject> objList, NCMBException Find_Ex) => {
+									if (Find_Ex != null) {
+										MessageCanvasMng.OpenMessagePopup (Manager_MessageCanvas.PopUpType.Normal, "通信に失敗しました");
+										ConnectingCanvasMng.Stop_Connecting ();
+									} else {
+										//ヘッダーとPopupを切り替え
+										SetUpPopup.SetActive (false);
+										StatusPopup.SetActive (true);
+										HeaderCtr ();
+										HeaderText.text = className;
+										//コンテンツ作成
+										CreatePlayer (objList);
+										Input_Coop_InputPopup.Close ();
+										ConnectingCanvasMng.Stop_Connecting ();
+									}
+								});
+							}
 						}else{
-							//ヘッダーとPopupを切り替え
-							SetUpPopup.SetActive (false);
-							StatusPopup.SetActive (true);
-							HeaderCtr ();
-							HeaderText.text = className;
-							//コンテンツ作成
-							CreatePlayer (objList);
-							Input_Coop_InputPopup.Close ();
+							MessageCanvasMng.OpenMessagePopup (Manager_MessageCanvas.PopUpType.Normal, "通信に失敗しました");
 							ConnectingCanvasMng.Stop_Connecting ();
 						}
 					});

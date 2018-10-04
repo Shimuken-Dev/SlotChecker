@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using NCMB;
 
 public class Manager_Game : MonoBehaviour {
@@ -11,7 +13,20 @@ public class Manager_Game : MonoBehaviour {
 
 
 /**スタンダード関数**/
-	void Start (){
+	void Awake (){
+		//シーンを展開
+		StartCoroutine (LoadScene_View ());
+	}
+	IEnumerator LoadScene_View (){
+		yield return SceneManager.LoadSceneAsync ("ViewScene", LoadSceneMode.Additive);
+		StartCoroutine (LoadScene_Common ());
+	}
+	IEnumerator LoadScene_Common (){
+		yield return SceneManager.LoadSceneAsync ("CommonScene", LoadSceneMode.Additive);
+		Scene_Load_Fnish ();
+	}
+
+	void Scene_Load_Fnish(){
 		//PlayerPrefs.DeleteAll ();
 		//ログアウト
 		NCMBUser.LogOutAsync ();
