@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using NCMB;
 
 public class Ctr_Coop_InputPopup : MonoBehaviour {
 
@@ -13,6 +14,14 @@ public class Ctr_Coop_InputPopup : MonoBehaviour {
 		HaveBall,
 		ChoiceMachine
 	}
+
+	enum InputType{
+		UsedMoney,
+		HaveMedal,
+		HaveBall,
+		ChoiceMachine
+	}
+	InputType input_type;
 
 	[SerializeField]
 	InputField input;
@@ -25,11 +34,22 @@ public class Ctr_Coop_InputPopup : MonoBehaviour {
 	Text_Description, 
 	Text_Btn;
 
+	Manager_ConnectingCanvas ConnectingCanvasMng;
+	Manager_MessageCanvas MessageCanvasMng;
 	Ctr_Coop CoopCtr;
+	Ctr_Coop_StatusPopup StatusPopupCtr;
+
+	NCMBObject MyObj;
+
+	int input_int;
+	string input_str;
 
 
 	void Start (){
 		CoopCtr = gameObject.transform.parent.GetComponent<Ctr_Coop> ();
+		StatusPopupCtr = gameObject.transform.parent.Find ("StatusPopup").GetComponent<Ctr_Coop_StatusPopup> ();
+		ConnectingCanvasMng = GameObject.Find ("ConnectingCanvas").GetComponent<Manager_ConnectingCanvas> ();
+		MessageCanvasMng = GameObject.Find ("MessageCanvas").GetComponent<Manager_MessageCanvas> ();
 		Initialized ();
 	}
 
@@ -104,19 +124,23 @@ public class Ctr_Coop_InputPopup : MonoBehaviour {
 	}
 	//総投資金額入力検知
 	void OnEndEdit_UserdMoney(string text){
-		
+		input_type = InputType.UsedMoney;
+		input_int = int.Parse (text);
 	}
 	//所持メダル枚数入力検知
 	void OnEndEdit_HaveMedal(string text){
-		
+		input_type = InputType.HaveMedal;
+		input_int = int.Parse (text);
 	}
 	//所持玉数入力検知
 	void OnEndEdit_HaveBall (string text){
-
+		input_type = InputType.HaveBall;
+		input_int = int.Parse (text);
 	}
 	//遊戯機種入力検知
 	void OnEndEdit_ChoiceMachine (string text){
-
+		input_type = InputType.ChoiceMachine;
+		input_str = text;
 	}
 //ボタン
 	//チームナンバー入力後ボタン
@@ -125,7 +149,48 @@ public class Ctr_Coop_InputPopup : MonoBehaviour {
 	}
 	//送信ボタン
 	void OnClick_PostBtn(){
-		
+		ConnectingCanvasMng.Start_Connecting ();
+		//自分のクラスフィードを取得
+		NCMBQuery<NCMBObject> query = new NCMBQuery<NCMBObject> ("Team" + CoopCtr.number);
+		query.WhereEqualTo ("player", Data_User.User_Name);
+		query.FindAsync ((List<NCMBObject> objList, NCMBException e) => {
+			//検索成功したら
+			if (e == null) {
+				MyObj = objList [0];
+				//要素に応じて更新
+				switch (input_type) {
+				case InputType.UsedMoney:
+					MyObj ["usedMoney"] = input_int;
+					break;
+				case InputType.HaveMedal:
+					MyObj ["haveMedal"] = input_int;
+					break;
+				case InputType.HaveBall:
+					MyObj ["haveBall"] = input_int;
+					break;
+				case InputType.ChoiceMachine:
+					MyObj ["playMachine"] = input_str;
+					break;
+				}
+				MyObj.SaveAsync ((NCMBException excep) => {
+					if (excep != null) {
+						//エラー処理
+						ConnectingCanvasMng.Stop_Connecting ();
+						MessageCanvasMng.OpenMessagePopup (Manager_MessageCanvas.PopUpType.Normal, "通信に失敗しました");
+						Close ();
+					} else {
+						//成功時の処理
+						ConnectingCanvasMng.Stop_Connecting ();
+						StatusPopupCtr.OnClick_ReloadBtn ();
+						Close ();
+					}
+				});
+			}else{
+				ConnectingCanvasMng.Stop_Connecting ();
+				MessageCanvasMng.OpenMessagePopup (Manager_MessageCanvas.PopUpType.Normal, "通信に失敗しました");
+				Close ();
+			}
+		});
 	}
 
 	//Popupアニメーション関数
