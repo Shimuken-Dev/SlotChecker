@@ -46,7 +46,7 @@ public class Ctr_Coop : MonoBehaviour {
 		MainCanvasMng = GameObject.Find ("MainCanvas").GetComponent<Manager_MainCanvas> ();
 		ConnectingCanvasMng = GameObject.Find ("ConnectingCanvas").GetComponent<Manager_ConnectingCanvas> ();
 		MessageCanvasMng = GameObject.Find ("MessageCanvas").GetComponent<Manager_MessageCanvas> ();
-		Input_Coop_InputPopup = gameObject.transform.Find ("InputTeamNumber").GetComponent<Ctr_Coop_InputPopup> ();
+		Input_Coop_InputPopup = gameObject.transform.Find ("InputPopup").GetComponent<Ctr_Coop_InputPopup> ();
 		className = "";
 		number = "";
 	}
