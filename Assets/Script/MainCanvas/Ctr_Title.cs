@@ -88,9 +88,13 @@ public class Ctr_Title : MonoBehaviour {
 				ReadNews = CommonFunctionsCtr.CountChar (currentUser ["read_news"].ToString (), ',') + 1;
 				//新着マークの管理
 				if (ReadNews == NewsCount) {
-					News_NewMarkObj.SetActive (false);
+					if (GameObject.Find ("Title") == true) {
+						News_NewMarkObj.SetActive (false);
+					}
 				} else {
-					News_NewMarkObj.SetActive (true);
+					if (GameObject.Find ("Title") == true) {
+						News_NewMarkObj.SetActive (true);
+					}
 				}
 			}
 		});
