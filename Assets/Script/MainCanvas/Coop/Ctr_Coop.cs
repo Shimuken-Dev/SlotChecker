@@ -125,6 +125,9 @@ public class Ctr_Coop : MonoBehaviour {
 				InsObj.transform.Find ("Player/Icon").GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Texture/Coop/PlayerIcon/" + i.ToString ());
 				//プレイヤーネーム
 				InsObj.transform.Find ("Player/Texts/NameText").GetComponent<Text> ().text = obj["player"].ToString();
+				//称号
+				int range = UnityEngine.Random.Range (0, 4);
+				InsObj.transform.Find ("Player/Texts/TitileImg").GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Texture/Coop/PlayerTitle/" + range.ToString ());
 				//投資金額
 				InsObj.transform.Find ("Info/UsedMoneyText").GetComponent<Text> ().text = string.Format("投資金額: {0}円",obj["usedMoney"]);
 				//持ちメダル数
@@ -137,7 +140,6 @@ public class Ctr_Coop : MonoBehaviour {
 			}
 		}
 	}
-
 
 //UGUI
 
