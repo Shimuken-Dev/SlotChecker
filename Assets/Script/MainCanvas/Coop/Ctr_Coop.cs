@@ -26,7 +26,7 @@ public class Ctr_Coop : MonoBehaviour {
 	Manager_ConnectingCanvas ConnectingCanvasMng;
 	Manager_MessageCanvas MessageCanvasMng;
 
-	Ctr_Coop_InputTeamNumber Input_TeamNumber_Ctr;
+	Ctr_Coop_InputPopup Input_Coop_InputPopup;
 
 	public string number;
 
@@ -46,7 +46,7 @@ public class Ctr_Coop : MonoBehaviour {
 		MainCanvasMng = GameObject.Find ("MainCanvas").GetComponent<Manager_MainCanvas> ();
 		ConnectingCanvasMng = GameObject.Find ("ConnectingCanvas").GetComponent<Manager_ConnectingCanvas> ();
 		MessageCanvasMng = GameObject.Find ("MessageCanvas").GetComponent<Manager_MessageCanvas> ();
-		Input_TeamNumber_Ctr = gameObject.transform.Find ("InputTeamNumber").GetComponent<Ctr_Coop_InputTeamNumber> ();
+		Input_Coop_InputPopup = gameObject.transform.Find ("InputTeamNumber").GetComponent<Ctr_Coop_InputPopup> ();
 		className = "";
 		number = "";
 	}
@@ -151,20 +151,17 @@ public class Ctr_Coop : MonoBehaviour {
 		StatusPopup.SetActive (false);
 		HeaderCtr ();
 		HeaderText.text = "";
-		foreach(Transform child in ContentTrns){
-			Destroy (child.gameObject);
-		}
 	}
 	//チーム参加ボタン
 	public void OnClick_SingInBtn(){
-		Input_TeamNumber_Ctr.Open ();
+		Input_Coop_InputPopup.Open (Ctr_Coop_InputPopup.Type.TeamNumber);
 	}
 	//チーム作成ボタン
 	public void OnClick_CreateBtn(){
 		PostCreateTeam ();
 	}
 	//参戦ボタン
-	public void OnClick_PushTeamNumberBtn(){
+	public void OnClicked_PushTeamNumberBtn(){
 		ConnectingCanvasMng.Start_Connecting ();
 		className = "Team" + number;
 		ConnectingCanvasMng.Start_Connecting ();
@@ -189,12 +186,7 @@ public class Ctr_Coop : MonoBehaviour {
 							NewTeamObj.Add ("usedMoney", 0);
 							NewTeamObj.Add ("haveMedal", 0);
 							NewTeamObj.Add ("haveBall", 0);
-							NewTeamObj.SaveAsync((NCMBException SaveExcep) => {
-								if (SaveExcep != null) {
-									//エラー処理
-									MessageCanvasMng.OpenMessagePopup (Manager_MessageCanvas.PopUpType.Normal, "通信に失敗しました");
-								}
-							});
+							NewTeamObj.SaveAsync ();
 						}
 					});
 					TeamQuery.FindAsync ((List<NCMBObject> objList, NCMBException e) => {
@@ -209,7 +201,7 @@ public class Ctr_Coop : MonoBehaviour {
 							HeaderText.text = className;
 							//コンテンツ作成
 							CreatePlayer (objList);
-							Input_TeamNumber_Ctr.Close ();
+							Input_Coop_InputPopup.Close ();
 							ConnectingCanvasMng.Stop_Connecting ();
 						}
 					});
