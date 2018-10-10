@@ -83,8 +83,12 @@ public class SmallRoleCounter_Default : MonoBehaviour {
 		//全小役の確率を更新
 		double Average = 0;
 		for (int i = 0; i < MathTexts.Length; i++){
-			Average = Numbers [i] / GameCnt;
-			MathTexts [i].text = string.Format ("1/{0}",Math.Ceiling (Average));
+			if (Numbers [i] != 0) {
+				Average = GameCnt / Numbers [i];
+				MathTexts [i].text = string.Format ("1/{0}", Math.Ceiling (Average));
+			}else{
+				MathTexts [i].text = "0/0";
+			}
 		}
 	}
 	//Game数入力のボタン
@@ -99,8 +103,12 @@ public class SmallRoleCounter_Default : MonoBehaviour {
 		//全小役の確率更新
 		double Average = 0;
 		for (int i = 0; i < MathTexts.Length; i++) {
-			Average = Numbers [i] / GameCnt;
-			MathTexts [i].text = string.Format ("1/{0}", Math.Ceiling (Average));
+			if (Numbers [i] != 0) {
+				Average = GameCnt / Numbers [i];
+				MathTexts [i].text = string.Format ("1/{0}", Math.Ceiling (Average));
+			}else{
+				MathTexts [i].text = "0/0";
+			}
 		}
 	}
 
@@ -111,8 +119,12 @@ public class SmallRoleCounter_Default : MonoBehaviour {
 		//変数を更新
 		Numbers [number] = int.Parse(InputFields [number].text);
 		//小役確率を更新
-		double Average = Numbers [number] / GameCnt;
-		MathTexts[number].text = string.Format("1/{0}", Math.Ceiling (Average));
+		if (Numbers [number] != 0) {
+			double Average = GameCnt / Numbers [number];
+			MathTexts [number].text = string.Format ("1/{0}", Math.Ceiling (Average));
+		}else{
+			MathTexts [number].text = "0/0";
+		}
 	}
 	//ボタン
 	public void OnClick_Button(GameObject Obj){
@@ -127,7 +139,11 @@ public class SmallRoleCounter_Default : MonoBehaviour {
 			InputFields [number].text = Numbers [number].ToString ();
 		}
 		//小役確率を更新
-		double Average = Numbers [number] / GameCnt;
-		MathTexts [number].text = string.Format ("1/{0}", Math.Ceiling (Average));
+		if (Numbers [number] != 0) {
+			double Average = GameCnt / Numbers [number];
+			MathTexts [number].text = string.Format ("1/{0}", Math.Ceiling (Average));
+		}else{
+			MathTexts [number].text = "0/0";
+		}
 	}
 }
