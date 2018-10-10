@@ -157,6 +157,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.DeveloperShimuken.SlotChecker
     Standalone: com.Company.ProductName
+    iOS: com.DeveloperShimuken.SlotChecker
   buildNumber: {}
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 19
@@ -237,7 +238,7 @@ PlayerSettings:
   tvOSManualSigningProvisioningProfileID: 
   iOSManualSigningProvisioningProfileType: 0
   tvOSManualSigningProvisioningProfileType: 0
-  appleEnableAutomaticSigning: 0
+  appleEnableAutomaticSigning: 1
   iOSRequireARKit: 0
   appleEnableProMotion: 0
   vulkanEditorSupport: 0
