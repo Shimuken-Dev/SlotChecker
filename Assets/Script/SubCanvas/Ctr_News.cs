@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -80,7 +81,8 @@ public class Ctr_News : MonoBehaviour {
 			//コンテンツ表示切り替え
 			InsObj.name = obj.ObjectId;
 			InsObj.transform.Find ("TextContent/TitleText").GetComponent<Text> ().text = obj ["title"].ToString ();
-			InsObj.transform.Find ("TextContent/DayText").GetComponent<Text> ().text = obj.UpdateDate.ToString ();
+			DateTime CreateTime = DateTime.Parse (obj.UpdateDate.ToString ());
+			InsObj.transform.Find ("TextContent/DayText").GetComponent<Text> ().text = string.Format("{0}年{1}月{2}日 {3}時{4}分{5}秒",CreateTime.Year,CreateTime.Month,CreateTime.Day,CreateTime.Hour,CreateTime.Minute,CreateTime.Second);
 			//新着マーク
 			if (ReadNews_list.Contains (obj.ObjectId) == true){ // ObjectIDと一致するものがあるかどうか確認する
 				// 存在する

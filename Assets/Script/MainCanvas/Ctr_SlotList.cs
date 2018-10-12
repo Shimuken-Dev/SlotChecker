@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -68,11 +69,13 @@ public class Ctr_SlotList : MonoBehaviour {
 			}else{
 				InsObj.transform.Find ("Thum").GetComponent<Image> ().sprite = NoImage_Spr;
 			}
+
 			InsObj.transform.Find ("TypeBand/TypeText").GetComponent<Text> ().text = obj ["type"].ToString ();
 			InsObj.transform.Find ("Info/Name").GetComponent<Text> ().text = obj ["name"].ToString ();
 			InsObj.transform.Find ("Info/Maker").GetComponent<Text> ().text = obj ["maker"].ToString ();
-			InsObj.transform.Find ("Info/ReleaseDay").GetComponent<Text> ().text = obj ["releaseDate"].ToString ();
 			InsObj.transform.Find ("ComingSoon").gameObject.SetActive (bool.Parse (obj ["comingSoon"].ToString ()));
+			DateTime ReleaseTime = DateTime.Parse (obj ["releaseDate"].ToString ());
+			InsObj.transform.Find ("Info/ReleaseDay").GetComponent<Text> ().text = string.Format ("{0}年{1}月{2}日",ReleaseTime.Year,ReleaseTime.Month,ReleaseTime.Day);
 			InsObj.SetActive (true);
 		}
 		//通信完了
