@@ -21,8 +21,6 @@ public class Ctr_SlotList : MonoBehaviour {
 	Manager_FadeCanvas FadeCanvasMng;
 	Manager_SubCanvas SubCanvasMng;
 
-	string Choice_Machine;
-
 	void Start (){
 		Initialized ();
 		GetSlotList ();
@@ -105,7 +103,7 @@ public class Ctr_SlotList : MonoBehaviour {
 
 	//台選択ボタン
 	public void OnClick_ChoiceBtn(GameObject Obj){
-		Choice_Machine = Obj.name;
+		Ctr_SlotListMenu.ChoiceMachine = Obj.name;
 		SubCanvasMng.OpenSub (Manager_SubCanvas.Sub.SlotListMenu);
 	}
 }

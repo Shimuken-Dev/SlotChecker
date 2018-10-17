@@ -11,7 +11,8 @@ public class Manager_SubCanvas : MonoBehaviour {
 		Login,
 		News,
 		Setting,
-		SlotListMenu
+		SlotListMenu,
+		MachineInfo
 	}
 
 	GameObject PrefabObj;
