@@ -16,7 +16,6 @@ public class Ctr_SlotListMenu : MonoBehaviour {
 //関数
 	void Initialize(){
 		SubCanvasMng = GameObject.Find ("SubCanvas").GetComponent<Manager_SubCanvas> ();
-		Debug.Log ("選択中の名前 : "+ChoiceMachine);
 	}
 
 //UGUI

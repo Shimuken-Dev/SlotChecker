@@ -82,8 +82,10 @@ public class Ctr_MachineInfo : MonoBehaviour {
 			InsObj.name = json ["setting"].str;
 			//コンテンツ書き換え
 			InsObj.transform.Find ("Setting/Text").GetComponent<Text> ().text = json ["setting"].str;			//設定
-			InsObj.transform.Find ("MachineDividend/Text").GetComponent<Text> ().text = json ["normal"].str;		//機械割
+			InsObj.transform.Find ("MachineDividend/Text").GetComponent<Text> ().text = json ["normal"].str;                //機械割
+			InsObj.transform.Find ("MachineDividend").GetComponent<Image> ().color = Color.white;
 			InsObj.transform.Find ("CompleteCapture/Text").GetComponent<Text> ().text = json ["complete_capture"].str;	//完全攻略
+			InsObj.transform.Find ("CompleteCapture").GetComponent<Image> ().color = Color.white;
 		}
 		//ボーナス解析表
 		foreach(JSONObject json in Json_Info["spec"]["bonus_probability"].list){
@@ -93,9 +95,12 @@ public class Ctr_MachineInfo : MonoBehaviour {
 			InsObj.name = json ["setting"].str;
 			//コンテンツ書き換え
 			InsObj.transform.Find ("Setting/Text").GetComponent<Text> ().text = json ["setting"].str;	//設定
-			InsObj.transform.Find ("Big/Text").GetComponent<Text> ().text = json ["big"].str;		//ビック確率
+			InsObj.transform.Find ("Big/Text").GetComponent<Text> ().text = json ["big"].str;               //ビック確率
+			InsObj.transform.Find ("Big").GetComponent<Image> ().color = Color.white;
 			InsObj.transform.Find ("Reg/Text").GetComponent<Text> ().text = json ["reg"].str;		//レギュラー確率
+			InsObj.transform.Find ("Reg").GetComponent<Image> ().color = Color.white;
 			InsObj.transform.Find ("Sum/Text").GetComponent<Text> ().text = json ["sum"].str;		//合算確率
+			InsObj.transform.Find ("Sum").GetComponent<Image> ().color = Color.white;
 		}
 		//その他の情報
 		Text_RotationNumber.text = Json_Info ["spec"] ["rotation_number"].str;			//回転数
