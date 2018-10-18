@@ -9,7 +9,8 @@ public class Manager_MainCanvas : MonoBehaviour {
 		Title,
 		SlotList,
 		Coop,
-		SmallRoleCounter
+		SmallRoleCounter,
+		JudgeSetting
 	}
 
 	Manager_SubCanvas SubCanvasMng;

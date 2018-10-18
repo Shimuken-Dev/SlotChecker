@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Ctr_SlotListMenu : MonoBehaviour {
 
-	static public string ChoiceMachine;
-
+	Manager_MainCanvas MainCanvasMng;
 	Manager_SubCanvas SubCanvasMng;
+	Manager_FadeCanvas FadeCanvasMng;
 
 
 	void Awake (){
@@ -15,7 +15,9 @@ public class Ctr_SlotListMenu : MonoBehaviour {
 
 //関数
 	void Initialize(){
+		MainCanvasMng = GameObject.Find ("MainCanvas").GetComponent<Manager_MainCanvas> ();
 		SubCanvasMng = GameObject.Find ("SubCanvas").GetComponent<Manager_SubCanvas> ();
+		FadeCanvasMng = GameObject.Find ("FadeCanvas").GetComponent<Manager_FadeCanvas> ();
 	}
 
 //UGUI
@@ -26,7 +28,7 @@ public class Ctr_SlotListMenu : MonoBehaviour {
 	}
 	//設定判別
 	public void OnClick_JudgeSetting(){
-		
+		StartCoroutine (FadeCanvasMng.FadeIn (() => MainCanvasMng.OpenMain (Manager_MainCanvas.Main.JudgeSetting)));
 	}
 	//実践予報
 	public void OnClick_PracticeForecast(){
