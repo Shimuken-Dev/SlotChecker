@@ -52,5 +52,6 @@ public class Manager_MainCanvas : MonoBehaviour {
 				Destroy (n.gameObject);
 			}
 		}
+		Resources.UnloadUnusedAssets ();
 	}
 }

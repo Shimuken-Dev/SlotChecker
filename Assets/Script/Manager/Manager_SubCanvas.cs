@@ -45,6 +45,7 @@ public class Manager_SubCanvas : MonoBehaviour {
 			}
 			PopupAnimation (false, ObjRectTrns);
 		}
+		Resources.UnloadUnusedAssets ();
 	}
 /**関数**/
 	//コンテンツ作成
