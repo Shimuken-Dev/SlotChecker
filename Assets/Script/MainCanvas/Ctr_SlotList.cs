@@ -103,7 +103,7 @@ public class Ctr_SlotList : MonoBehaviour {
 
 	//台選択ボタン
 	public void OnClick_ChoiceBtn(GameObject Obj){
-		Ctr_SlotListMenu.ChoiceMachine = Obj.name;
+		Data_User.Choice_Machine = Obj.name;
 		SubCanvasMng.OpenSub (Manager_SubCanvas.Sub.SlotListMenu);
 	}
 }

@@ -50,7 +50,7 @@ public class Ctr_MachineInfo : MonoBehaviour {
 		MessageMng = GameObject.Find ("MessageCanvas").GetComponent<Manager_MessageCanvas> ();
 		ConnectingCanvasMng.Start_Connecting ();
 		//コンテンツJSON取得
-		NCMBFile file = new NCMBFile (Ctr_SlotListMenu.ChoiceMachine + "_Info.json");
+		NCMBFile file = new NCMBFile (Data_User.Choice_Machine + "_Info.json");
 		file.FetchAsync ((byte [] fileData, NCMBException error) => {
 			if (error != null) {
 				// 失敗
@@ -59,7 +59,6 @@ public class Ctr_MachineInfo : MonoBehaviour {
 			} else {
 				// 成功
 				Json_Info = JSONObject.Create (CommonFunctionsCtr.BytesToString (fileData));
-				Debug.Log (Json_Info);
 				Create ();
 			}
 		});

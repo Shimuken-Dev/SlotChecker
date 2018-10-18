@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Data_User {
-
 	public static string
 	Device_ID,
 	User_Name,
 	Mail_Address,
 	Pass_Word,
-	Tester;
+	Tester,
+	Choice_Machine;
+
 }
 
 public class Load_Data_User : MonoBehaviour{
