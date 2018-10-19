@@ -46,4 +46,9 @@ public class CommonFunctionsCtr : MonoBehaviour {
 	public static int CountChar (string s, char c){
 		return s.Length - s.Replace (c.ToString (), "").Length;
 	}
+
+	//**** 文字の出現回数をカウント ****//
+	public static string BytesToString (byte [] bytes){
+		return System.Text.Encoding.UTF8.GetString (bytes);
+	}
 }

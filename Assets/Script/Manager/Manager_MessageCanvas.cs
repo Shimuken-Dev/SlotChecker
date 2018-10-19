@@ -69,6 +69,7 @@ public class Manager_MessageCanvas : MonoBehaviour {
 //UGUI
 	//閉じるボタン
 	void OnClick_CloseBtn(){
+		Resources.UnloadUnusedAssets ();
 		PopupAnimation (false);
 		Popup_Btn.onClick.RemoveListener (OnClick_CloseBtn);
 	}

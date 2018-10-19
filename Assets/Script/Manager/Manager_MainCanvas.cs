@@ -9,7 +9,8 @@ public class Manager_MainCanvas : MonoBehaviour {
 		Title,
 		SlotList,
 		Coop,
-		SmallRoleCounter
+		SmallRoleCounter,
+		JudgeSetting
 	}
 
 	Manager_SubCanvas SubCanvasMng;
@@ -52,5 +53,6 @@ public class Manager_MainCanvas : MonoBehaviour {
 				Destroy (n.gameObject);
 			}
 		}
+		Resources.UnloadUnusedAssets ();
 	}
 }

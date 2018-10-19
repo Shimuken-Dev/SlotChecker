@@ -11,7 +11,8 @@ public class Manager_SubCanvas : MonoBehaviour {
 		Login,
 		News,
 		Setting,
-		SlotListMenu
+		SlotListMenu,
+		MachineInfo
 	}
 
 	GameObject PrefabObj;
@@ -44,6 +45,7 @@ public class Manager_SubCanvas : MonoBehaviour {
 			}
 			PopupAnimation (false, ObjRectTrns);
 		}
+		Resources.UnloadUnusedAssets ();
 	}
 /**関数**/
 	//コンテンツ作成
