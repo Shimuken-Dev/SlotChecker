@@ -24,6 +24,7 @@ public class Manager_ConnectingCanvas : MonoBehaviour {
 	}
 	//通信完了
 	public void Stop_Connecting(){
+		Resources.UnloadUnusedAssets ();
 		Flg_Animation = false;
 		Connecting_obj.SetActive (false);
 	}

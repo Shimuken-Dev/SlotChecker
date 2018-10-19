@@ -63,7 +63,8 @@ public class Ctr_SmallRoleCounter_Popup : MonoBehaviour {
 	}
 	//オリジナルカウンター作成ボタン
 	public void OnClick_OriginalBtn (){
-		//TODO
+		GameObject Counter = Instantiate (Resources.Load ("Prefab/SmallRoleCounter/Original") as GameObject);
+		Counter.transform.SetParent (CounterTrns, false);
 		Close ();
 		BackBtnObj.SetActive (true);
 		CloseBtnObj.SetActive (false);

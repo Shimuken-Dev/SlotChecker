@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,7 +23,7 @@ public class SmallRoleCounter_Default : MonoBehaviour {
 	Text [] MathTexts;
 
 	int [] Numbers;
-	int GameCnt;
+	float GameCnt;
 
 	bool Mode;
 	// falseが +
@@ -81,11 +80,10 @@ public class SmallRoleCounter_Default : MonoBehaviour {
 		//取得
 		GameCnt = int.Parse (text);
 		//全小役の確率を更新
-		double Average = 0;
 		for (int i = 0; i < MathTexts.Length; i++){
 			if (Numbers [i] != 0) {
-				Average = GameCnt / Numbers [i];
-				MathTexts [i].text = string.Format ("1/{0}", Math.Ceiling (Average));
+				float Math = GameCnt / Numbers [i];
+				MathTexts [i].text = string.Format ("1/{0}", Math);
 			}else{
 				MathTexts [i].text = "0/0";
 			}
@@ -101,11 +99,10 @@ public class SmallRoleCounter_Default : MonoBehaviour {
 			Input_GameCnt.text = GameCnt.ToString ();
 		}
 		//全小役の確率更新
-		double Average = 0;
 		for (int i = 0; i < MathTexts.Length; i++) {
 			if (Numbers [i] != 0) {
-				Average = GameCnt / Numbers [i];
-				MathTexts [i].text = string.Format ("1/{0}", Math.Ceiling (Average));
+				float Math = GameCnt / Numbers [i];
+				MathTexts [i].text = string.Format ("1/{0}", Math);
 			}else{
 				MathTexts [i].text = "0/0";
 			}
@@ -120,8 +117,8 @@ public class SmallRoleCounter_Default : MonoBehaviour {
 		Numbers [number] = int.Parse(InputFields [number].text);
 		//小役確率を更新
 		if (Numbers [number] != 0) {
-			double Average = GameCnt / Numbers [number];
-			MathTexts [number].text = string.Format ("1/{0}", Math.Ceiling (Average));
+			float Math = GameCnt / Numbers [number];
+			MathTexts [number].text = string.Format ("1/{0}", Math);
 		}else{
 			MathTexts [number].text = "0/0";
 		}
@@ -140,8 +137,8 @@ public class SmallRoleCounter_Default : MonoBehaviour {
 		}
 		//小役確率を更新
 		if (Numbers [number] != 0) {
-			double Average = GameCnt / Numbers [number];
-			MathTexts [number].text = string.Format ("1/{0}", Math.Ceiling (Average));
+			float Math = GameCnt / Numbers [number];
+			MathTexts [number].text = string.Format ("1/{0}", Math);
 		}else{
 			MathTexts [number].text = "0/0";
 		}
