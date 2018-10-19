@@ -55,6 +55,10 @@ public class Ctr_Title : MonoBehaviour {
 	public void OnClick_SlotListBtn(){
 		StartCoroutine(FadeCanvasMng.FadeIn (() => MainCanvasMng.OpenMain (Manager_MainCanvas.Main.SlotList)));
 	}
+	//パチンコ一覧
+	public void OnClick_PachinkoListBtn(){
+		StartCoroutine (FadeCanvasMng.FadeIn (() => MainCanvasMng.OpenMain (Manager_MainCanvas.Main.PachinkoList)));
+	}
 	//ノリ打ち
 	public void OnClick_CoopBtn(){
 		StartCoroutine (FadeCanvasMng.FadeIn (() => MainCanvasMng.OpenMain (Manager_MainCanvas.Main.Coop)));

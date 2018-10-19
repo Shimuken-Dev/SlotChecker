@@ -8,6 +8,7 @@ public class Manager_MainCanvas : MonoBehaviour {
 	public enum Main{
 		Title,
 		SlotList,
+		PachinkoList,
 		Coop,
 		SmallRoleCounter,
 		JudgeSetting
