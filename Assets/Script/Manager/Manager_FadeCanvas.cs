@@ -19,6 +19,7 @@ public class Manager_FadeCanvas : MonoBehaviour {
 			FadeImg.color = new Color(0f,0f,0f,i);
 			yield return null;
 		}
+		Resources.UnloadUnusedAssets ();
 		FadeImg.color = new Color (0f, 0f, 0f, 1f);
 		CallBack ();
 	}
@@ -30,6 +31,7 @@ public class Manager_FadeCanvas : MonoBehaviour {
 
 		FadeImg.color = new Color (0f, 0f, 0f, 0f);
 		FadeImg.raycastTarget = false;
+		Resources.UnloadUnusedAssets ();
 		if (CallBack != null) {
 			CallBack ();
 		}

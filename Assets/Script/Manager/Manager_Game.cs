@@ -28,6 +28,7 @@ public class Manager_Game : MonoBehaviour {
 
 	void Scene_Load_Fnish(){
 		//PlayerPrefs.DeleteAll ();
+		Resources.UnloadUnusedAssets ();
 		//ログアウト
 		NCMBUser.LogOutAsync ();
 		//PlayerPrefsをロード

@@ -8,7 +8,9 @@ public class Manager_MainCanvas : MonoBehaviour {
 	public enum Main{
 		Title,
 		SlotList,
-		Coop
+		Coop,
+		SmallRoleCounter,
+		JudgeSetting
 	}
 
 	Manager_SubCanvas SubCanvasMng;
@@ -51,5 +53,6 @@ public class Manager_MainCanvas : MonoBehaviour {
 				Destroy (n.gameObject);
 			}
 		}
+		Resources.UnloadUnusedAssets ();
 	}
 }
