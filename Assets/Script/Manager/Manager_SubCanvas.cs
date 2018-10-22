@@ -12,6 +12,7 @@ public class Manager_SubCanvas : MonoBehaviour {
 		News,
 		Setting,
 		SlotListMenu,
+		PachinkoListMenu,
 		MachineInfo
 	}
 

@@ -105,6 +105,6 @@ public class Ctr_PachinkoList : MonoBehaviour {
 	//台選択ボタン
 	public void OnClick_ChoiceBtn (GameObject Obj){
 		Data_User.Choice_Machine = Obj.name;
-		//SubCanvasMng.OpenSub (Manager_SubCanvas.Sub.SlotListMenu);
+		SubCanvasMng.OpenSub (Manager_SubCanvas.Sub.PachinkoListMenu);
 	}
 }

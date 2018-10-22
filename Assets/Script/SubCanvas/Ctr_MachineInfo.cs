@@ -54,6 +54,7 @@ public class Ctr_MachineInfo : MonoBehaviour {
 		file.FetchAsync ((byte [] fileData, NCMBException error) => {
 			if (error != null) {
 				// 失敗
+				ConnectingCanvasMng.Stop_Connecting ();
 				MessageMng.OpenMessagePopup (Manager_MessageCanvas.PopUpType.Normal, "通信に失敗しました");
 				Destroy (gameObject);
 			} else {
