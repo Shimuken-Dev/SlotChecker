@@ -116,4 +116,12 @@ public class Ctr_MiniGame : MonoBehaviour {
 	public void OnClick_CloseBtn(){
 		StartCoroutine (FadeCanvasMng.FadeIn (() => MainCanvasMng.OpenMain (Manager_MainCanvas.Main.Title)));
 	}
+	//Playボタン
+	public void OnClick_PlayBtn(GameObject Obj){
+		switch(Obj.name){
+		case "jhrskudqpEbCn9Tk":
+			StartCoroutine (FadeCanvasMng.FadeIn (() => MainCanvasMng.OpenMiniGame (Manager_MainCanvas.MiniGame.jhrskudqpEbCn9Tk)));
+			break;
+		}
+	}
 }

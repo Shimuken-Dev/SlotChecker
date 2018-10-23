@@ -15,12 +15,17 @@ public class Manager_MainCanvas : MonoBehaviour {
 		MiniGame
 	}
 
+	public enum MiniGame{
+		jhrskudqpEbCn9Tk	//おみくじGOD凱旋
+	}
+
 	Manager_SubCanvas SubCanvasMng;
 
 	GameObject PrefabObj;
 
 	string 
-	Path_Format = "Prefab/Main/{0}",
+	Path_Format_Main = "Prefab/Main/{0}",
+	Path_Format_MiniGame = "Prefab/MiniGame/{0}",
 	Prefab_Name;
 
 /**パブリック関数**/
@@ -31,7 +36,17 @@ public class Manager_MainCanvas : MonoBehaviour {
 		//プレハブ名を取得
 		Prefab_Name = page.ToString ();
 		//生成オブジェクトを指定
-		PrefabObj = Resources.Load (string.Format (Path_Format, page)) as GameObject;
+		PrefabObj = Resources.Load (string.Format (Path_Format_Main, page)) as GameObject;
+		CreateMain ();
+	}
+	//ミニゲームを開く
+	public void OpenMiniGame(MiniGame game){
+		//Viewシーンをアクティブに
+		SceneManager.SetActiveScene (SceneManager.GetSceneByName ("ViewScene"));
+		//プレハブ名を取得
+		Prefab_Name = game.ToString ();
+		//生成オブジェクトを指定
+		PrefabObj = Resources.Load (string.Format (Path_Format_MiniGame, game)) as GameObject;
 		CreateMain ();
 	}
 /**関数**/
