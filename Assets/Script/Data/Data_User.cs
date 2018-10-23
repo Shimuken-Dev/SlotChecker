@@ -11,6 +11,9 @@ public class Data_User {
 	Tester,
 	Choice_Machine;
 
+	public static int
+	Point;
+
 }
 
 public class Load_Data_User : MonoBehaviour{

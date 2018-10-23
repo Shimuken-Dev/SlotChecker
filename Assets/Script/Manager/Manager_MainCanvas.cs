@@ -11,7 +11,8 @@ public class Manager_MainCanvas : MonoBehaviour {
 		PachinkoList,
 		Coop,
 		SmallRoleCounter,
-		JudgeSetting
+		JudgeSetting,
+		MiniGame
 	}
 
 	Manager_SubCanvas SubCanvasMng;

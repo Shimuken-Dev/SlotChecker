@@ -67,6 +67,10 @@ public class Ctr_Title : MonoBehaviour {
 	public void OnClick_SmallRole_Counter(){
 		StartCoroutine (FadeCanvasMng.FadeIn (() => MainCanvasMng.OpenMain (Manager_MainCanvas.Main.SmallRoleCounter)));
 	}
+	//ミニゲーム
+	public void OnClick_MiniGameBtn(){
+		StartCoroutine (FadeCanvasMng.FadeIn (() => MainCanvasMng.OpenMain (Manager_MainCanvas.Main.MiniGame)));
+	}
 
 //関数
 	//初期化

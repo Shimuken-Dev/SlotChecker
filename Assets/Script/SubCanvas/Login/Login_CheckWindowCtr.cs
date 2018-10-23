@@ -118,7 +118,8 @@ public class Login_CheckWindowCtr : MonoBehaviour {
 		user.Email = Data_User.Mail_Address; 		/* メールアドレス */
 		user.Add ("read_news", "");			/* 既読ニュース*/
 		user.Add ("deviceId", Data_User.Device_ID); 	/* 端末ID */
-		user.Add ("tester", false); 			/* テスター */
+		user.Add ("tester", false);                     /* テスター */
+		user.Add ("point", 0);				/* ポイント */
 		// ユーザーの新規登録処理
 		user.SignUpAsync ((NCMBException SingUp_Excep) => {
 			if (SingUp_Excep != null) {
@@ -132,6 +133,7 @@ public class Login_CheckWindowCtr : MonoBehaviour {
 				Data_User.Mail_Address = currentUser.Email;
 				Data_User.Device_ID = currentUser ["deviceId"].ToString ();
 				Data_User.Tester = currentUser ["tester"].ToString ();
+				Data_User.Point = 0;
 				Save_Data_User.Save ();
 				LoginCtr.Finish_Login ("登録されたメールアドレスに\n確認メールを送信致しました\n確認メール内にある\nリンクを押して登録アドレスを\n有効にして下さい");
 			}
@@ -151,6 +153,7 @@ public class Login_CheckWindowCtr : MonoBehaviour {
 				Data_User.Mail_Address = currentUser.Email;
 				Data_User.Device_ID = currentUser ["deviceId"].ToString ();
 				Data_User.Tester = currentUser ["tester"].ToString ();
+				Data_User.Point = int.Parse(currentUser["point"].ToString());
 				Save_Data_User.Save ();
 				LoginCtr.Finish_Login ("ログインが完了しました");
 			}
